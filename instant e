@@ -1,3 +1,21 @@
-game:GetService("ProximityPromptService").PromptButtonHoldBegan:Connect(function(prompt)
-  fireproximityprompt(prompt)
+for _, prom in next, workspace:GetDescendants() do
+  if prom:IsA("ProximityPrompt") then
+    prom.PromptButtonHoldBegan:Connect(function()
+       if prom.HoldDuration <= 0 then return end
+      fireproximityprompt(prom, 0)
+    end)
+  end
+end
+
+workspace.DescendantAdded:Connect(function(class)
+  if class:IsA("ProximityPrompt") then
+    class.PromptButtonHoldBegan:Connect(function()
+        if class.HoldDuration <= 0 then return end
+      fireproximityprompt(class, 0)
+    end)
+  end
 end)
+
+
+
+      
